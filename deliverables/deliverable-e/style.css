@@ -1,0 +1,196 @@
+.wrapper{
+
+    width: 960px;
+	margin-right: auto;
+ 	margin-left: auto;
+}
+
+#navigation {
+ margin: 0;
+ padding: 0 1em;
+ background: #000;
+ height: 3em;
+ list-style: none;
+ width: 89%;
+ margin-right: auto;
+ margin-left: auto;
+}
+
+#navigation > li {
+ float: left;
+ height: 100%;
+ margin-right: 0.5em;
+ padding: 0 1em;
+}
+
+#navigation > li > a {
+ float: left;
+ height: 100%;
+ color: white;
+ text-decoration: none;
+ line-height: 3;
+ font-weight: bold;
+ text-transform: uppercase;
+}
+
+#navigation > li > a:hover {
+ color: gray;
+ text-decoration: underline;
+}
+
+#navigation > li.sub {
+ position: relative;
+}
+
+#navigation > li.sub ul {
+ width: 10em;
+ margin: 0;
+ padding: 0.5em 0;
+ list-style: none;
+ background: gray;
+ position: absolute;
+ top: -1000em;
+}
+
+#navigation > li.sub ul li {
+ width: 90%;
+ margin: 0 auto 0.3em auto;
+}
+
+#navigation > li.sub ul li a {
+ height: 100%;
+ display: block;
+ padding: 0.4em;
+ color: #fff;
+ font-weight: bold;
+ text-decoration: none;
+}
+
+#navigation > li.sub ul li a:hover {
+ background: black;
+ text-decoration: underline;
+}
+
+#navigation > li.sub:hover ul {
+ top: 3em;
+}
+
+#content{
+	background-color: white;
+	padding: 10px 10px 10px 20px;
+	margin-top: 60px;
+	background-color: rgba(255, 255, 255, 0.6);
+	border: 2px solid;
+    border-radius: 25px;
+	font-family: 'Amaranth', sans-serif;
+}
+
+#content-register{
+	background-color: white;
+	padding: 10px 10px 350px 20px;
+	margin-top: 60px;
+	background-color: rgba(255, 255, 255, 0.6);
+	border: 2px solid;
+    border-radius: 25px;
+	font-family: 'Amaranth', sans-serif;
+}
+
+
+#uvac{
+	float: left;
+	padding-right: 20px;
+}
+
+#content h1{
+	font-size: 50px;
+	width: 20%;
+	float: left;
+}
+
+#selo{
+	float: right;
+}
+
+#free {
+   	float: center;
+}
+
+#petrovaradin {
+   	float: right;
+}
+.footer-home{
+	margin-top: 60px;
+	background-color: white;
+	opacity: 0.89;
+	border: 2px solid;
+    border-radius: 25px;
+    text-align: center;
+
+}
+.footer-where{
+	margin-top: 300px;
+	background-color: white;
+	opacity: 0.89;
+	border: 2px solid;
+    border-radius: 25px;
+    text-align: center;
+
+}
+
+
+
+footer {
+	margin-top: 30px;
+	background-color: white;
+	opacity: 0.89;
+	border: 2px solid;
+    border-radius: 25px;
+    text-align: center;
+}
+
+#contact_form{
+	margin-left: 250px;
+}
+
+#login{
+	width: 400px;
+	height: 200px;
+text-align: center;
+}
+
+
+#register{
+	width: 400px;
+	height: 200px;
+	text-align: center;
+
+}
+
+.left-form{
+	float: left;
+	padding-left: 50px;
+}
+
+.right-form{
+	float: right;
+	padding-right: 50px;
+}
+
+#welcome{
+ height: 100%;
+ color: white;
+ text-decoration: none;
+ line-height: 3;
+ font-weight: bold;
+ text-transform: uppercase;
+}
+
+#logout a{
+ float: right;
+ height: 100%;
+ color: red;
+ text-decoration: none;
+ line-height: 3;
+ font-weight: bold;
+ text-transform: uppercase;
+}

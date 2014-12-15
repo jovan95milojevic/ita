@@ -1,4 +1,4 @@
-
+<?php session_start(); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +32,9 @@
 				<li class="sub">
 					<a href="nightlife.php">Nightlife</a>
 					<ul>
-						<li><a href="clubbing.php">Clubbing</a></li>
+						<?php if(isset($_SESSION['name'])){
+			   			 echo '<li><a href="clubbing.php">Clubbing</a></li>';
+						} ?>
 						<li><a href="festivals.php">Festivals</a></li>
 					</ul>
 				</li>
@@ -50,17 +52,16 @@
 
 	
 				<?php 
-	session_start();
-	if(isset($_SESSION['name'])){
-			    echo "<li id=\"welcome\">";
-			    echo 'Welcome ' . $_SESSION['name'] . '!';
-			    echo '<a id="logout" href="logout.php">Logout</a>';
-			    echo "</li>";
-			} else {
+				if(isset($_SESSION['name'])){
+						    echo "<li id=\"welcome\">";
+						    echo 'Welcome ' . $_SESSION['name'] . '!';
+						    echo '&nbsp&nbsp&nbsp&nbsp&nbsp<a href="logout.php">Logout</a>';
+						    echo "</li>";
+						} else {
 
-			    echo '<a href="register_login.php">Sign In/Register</a>';
-			}
-?>							
+						    echo '<li><a href="login_register.php">Sign In/Register</a></li>';
+						}
+				?>							
 				
 				</ul>
 			</nav>

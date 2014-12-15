@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +32,9 @@
 				<li class="sub">
 					<a href="nightlife.php">Nightlife</a>
 					<ul>
-						<li><a href="clubbing.php">Clubbing</a></li>
+						<?php if(isset($_SESSION['name'])){
+			   			 echo '<li><a href="clubbing.php">Clubbing</a></li>';
+						} ?>
 						<li><a href="festivals.php">Festivals</a></li>
 					</ul>
 				</li>
@@ -46,9 +50,17 @@
 				   <a href="gallery.php">Gallery</a>
 				</li>								
 
-				<li>
-				   <a href="login_register.php">LogIn/Register</a>
-				</li>	
+				<?php 
+				if(isset($_SESSION['name'])){
+						    echo "<li id=\"welcome\">";
+						    echo 'Welcome ' . $_SESSION['name'] . '!';
+						    echo '&nbsp&nbsp&nbsp&nbsp&nbsp<a href="logout.php">Logout</a>';
+						    echo "</li>";
+						} else {
+
+						    echo '<li><a href="login_register.php">Sign In/Register</a></li>';
+						}
+				?>
 								
 				</ul>
 			</nav>

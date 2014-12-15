@@ -2,18 +2,23 @@
 $validationPassed = false;
 $registerFieldsNotEmpty = false;
 $error = '';
+$registerErrors = array();
+$loginErrors = array();
 
 $dbhost 	= "localhost";
 $dbname		= "ita";
 $dbuser		= "root";
 $dbpass		= "";
 
+
+
 if (!empty($_POST['register'])) {
 
 	if (isset($_POST['conpassword'])) {
 			$conpassword = $_POST['conpassword'];
 			if (empty($conpassword)) {
-				$error = "Please fill 'Enter your password' field!";
+				$error = "Confirm Password is required!";
+				$registerErrors[] = $error;
 			}
 		}	
 
@@ -21,13 +26,15 @@ if (!empty($_POST['register'])) {
 			$password = $_POST['password'];
 			if (empty($password)) {
 				$error = "Password is required!";
+				$registerErrors[] = $error;
 			}
 		}
 
 	if (isset($_POST['dob'])) {
 			$dob = $_POST['dob'];
 			if (empty($dob)) {
-				$error = "dob is required!";
+				$error = "Date of Birth is required!";
+				$registerErrors[] = $error;
 			}
 		} 
 
@@ -35,6 +42,7 @@ if (!empty($_POST['register'])) {
 			$email = $_POST['email'];
 			if (empty($email)) {
 				$error = "Email is required!";
+				$registerErrors[] = $error;
 			}
 		} 
 
@@ -42,10 +50,14 @@ if (!empty($_POST['register'])) {
 		$name = $_POST['name'];
 		if (empty($name)) {
 			$error = "Name is required!";
+			$registerErrors[] = $error;
 		}
 	}
 
-	$registerFieldsNotEmpty = true;
+	if (empty($registerErrors)) {
+		$registerFieldsNotEmpty = true;
+	}
+
 
 	// check if password match!!
 	if ($registerFieldsNotEmpty) {
@@ -73,11 +85,56 @@ if (!empty($_POST['register'])) {
 			echo 'you are logged in!!';
 			header("Location: index.php");
 		} else {
-			echo "there was an error!";
+			$error =  "there was an error!";
+			$registerErrors[] = $error;
 		}
 	}
 	
 
+}
+
+if (!empty($_POST['login'])) {
+
+	if (isset($_POST['password'])) {
+			$password = $_POST['password'];
+			if (empty($password)) {
+				$error = "Password is required!";
+				$loginErrors[] = $error;
+			}
+		}
+
+	if (isset($_POST['email'])) {
+			$email = $_POST['email'];
+			if (empty($email)) {
+				$error = "Email is required!";
+				$loginErrors[] = $error;
+			}
+		}
+
+		if (empty($loginErrors)) {
+		$validationPassed = true;
+	}
+
+	if ($validationPassed) {
+		
+		session_start();
+
+		$conn = new PDO("mysql:host=$dbhost;dbname=$dbname",$dbuser,$dbpass);
+		$query = $conn->prepare("SELECT name FROM users WHERE email = :email AND password = :password");
+		$query->bindParam(':email', $email);
+		$query->bindParam(':password', $password);
+		$query->execute();
+
+		$count = $query->rowCount();
+		$row = $query->fetchAll();
+		
+		if ($count == 1) {
+			$_SESSION['name'] = $row[0]['name'];
+			header("Location: index.php");
+		} else {
+			 $loginErrors[] = "Login Failed!";
+		}
+	}
 }
 
 
@@ -116,7 +173,9 @@ if (!empty($_POST['register'])) {
 				<li class="sub">
 					<a href="nightlife.php">Nightlife</a>
 					<ul>
-						<li><a href="clubbing.php">Clubbing</a></li>
+						<?php if(isset($_SESSION['name'])){
+			   			 echo '<li><a href="clubbing.php">Clubbing</a></li>';
+						} ?>
 						<li><a href="festivals.php">Festivals</a></li>
 					</ul>
 				</li>
@@ -159,8 +218,10 @@ if (!empty($_POST['register'])) {
 						<input type='password' name='conpassword' id='conpassword' maxlength="50" /><br><br>
 
 						<?php 
-							
-								echo '<small style="color:"red";>' . $error . '</small>' . '<br><br>';
+								foreach ($registerErrors as $error) {
+									echo '<small style="color:"red";>' . $error . '</small>' . '<br>';
+								}
+								
 							
 						 ?>
 						<input type='submit' name='register' value='Register' />
@@ -173,11 +234,18 @@ if (!empty($_POST['register'])) {
 				<form id='login' action='' method='post'>
 					<fieldset >
 						<legend>Login</legend>
-						<label for='username' >UserName:</label>
-						<input type='text' name='username' id='username' maxlength="50" /><br><br>
+						<label for='email' >E-mail:</label>
+						<input type='text' name='email' id='email' maxlength="50" /><br><br>
 						 
 						<label for='password' >Password*:</label>
 						<input type='password' name='password' id='password' maxlength="50" /><br><br>
+						<?php 
+								foreach ($loginErrors as $error) {
+									echo '<small style="color:"red";>' . $error . '</small>' . '<br>';
+								}
+								
+							
+						 ?>
 						<input type='submit' name='login' value='Login' />
 					 
 					</fieldset>
